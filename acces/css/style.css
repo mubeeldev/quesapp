@@ -1,0 +1,12 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:root{
+    --background:#004030;
+    --second-bg: #4A9782;
+    --button-color:#DCD0A8;
+    --text-color: #fff9E5;
+    --error:#ff4f0f;
+}
