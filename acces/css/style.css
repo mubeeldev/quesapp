@@ -9,6 +9,7 @@
     --button-color:#DCD0A8;
     --text-color: #fff9E5;
     --error:#ff4f0f;
+    --correct : rgb(47, 246, 47);
 }
 body{
     width: 100%;
@@ -73,12 +74,28 @@ main{
         font-size: 2rem;
         border: none;
         width: auto;
-        display: none;
+        
 
         &:hover{
             background: var(--text-color);
             color: var(--first-bg);
 
         }
+    }
+    .hide{
+        display: none;
+    }
+    .correct{
+        background: var(--correct);
+        color:  var(--first-bg);
+    }
+    .incorrect{
+        background:  var(--error);
+        color: var(--text-color);
+    }
+    .disabled{
+        background: gray;
+        color: white;
+        cursor: not-allowed;
     }
 }
