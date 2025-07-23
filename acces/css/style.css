@@ -52,6 +52,7 @@ main{
         margin-bottom: 1rem;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-weight: 700;
+        text-align: center;
     }
     .answer-btn{
         background: var(--second-bg);
@@ -76,7 +77,7 @@ main{
         margin: 1rem 0;
         
     }
-    .next-btn{
+    /* .next-btn{
         background: var(--first-bg);
         color: var(--text-color);
         font-size: 2rem;
@@ -89,7 +90,7 @@ main{
             color: var(--first-bg);
 
         }
-    }
+    } */
     .hide{
         display: none;
     }

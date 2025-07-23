@@ -94,13 +94,16 @@ let score = 0;
 function startGame() {
     // currentQuestionIndex = 0;
     // score = 0;
-    nextButton.classList.add('hide');
+    nextButton.style.display = "none";
+
     showQuestion();
 }
 
 function showQuestion() {
     const currentQuestion = questions[currentQuestionIndex].question;
     const currentAnswers = questions[currentQuestionIndex].answer;
+    nextButton.innerText = "Next";
+
     renderQuestion(currentQuestion, currentAnswers) ;
 }
 
@@ -137,19 +140,24 @@ function isCorrect(answer, answerBtn) {
         answerBtn.classList.add('correct');
         let ca = answerBtn.dataset.correct = answer.correct;
         score++;
-        console.log(score);
-    
     };
-
-
-
 
 }
 
 nextButton.addEventListener('click', ()=>{
-    currentQuestionIndex +=1;
-    console.log(currentQuestionIndex); startGame();
-    
+    if(currentQuestionIndex >= questions.length - 1) {
+        // nextButton.style.display = "block";
+        nextButton.innerText = "Finish";
+        alert(score)
+        startGame();
+        currentQuestionIndex = 0;
+        score = 0;
+    }
+    else {
+        nextButton.style.display = "block";
+        currentQuestionIndex +=1;
+        startGame();
+    }
 
 })
 startGame();
