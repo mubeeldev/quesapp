@@ -82,82 +82,90 @@ const questions = [
 
 
 ];
-const questionElement = document.querySelector('.display-Question');
-const answerButtonsElement = document.querySelector('.answers-btn');
-const nextButton = document.querySelector('.next-btn');
 
+const questionElement = document.querySelector(".question");
+const answerButtonsElement = document.querySelector(".answers-btn");
+const nextButton = document.querySelector(".next-btn");
 let currentQuestionIndex = 0;
 let score = 0;
-
-
-
 function startGame() {
-    // currentQuestionIndex = 0;
-    // score = 0;
-    nextButton.style.display = "none";
-
+    currentQuestionIndex = 0;
+    score = 0;
+    nextButton,innerText = "Next";
     showQuestion();
 }
-
 function showQuestion() {
-    const currentQuestion = questions[currentQuestionIndex].question;
-    const currentAnswers = questions[currentQuestionIndex].answer;
-    nextButton.innerText = "Next";
+    resetState();
+    let currentQuestion = questions[currentQuestionIndex];
+    let questionNo = currentQuestionIndex + 1;
+    questionElement.innerText = questionNo + ". " + currentQuestion.question;
 
-    renderQuestion(currentQuestion, currentAnswers) ;
-}
-
-function renderQuestion(currentQuestion, currentAnswers) {
-    questionElement.innerHTML = currentQuestion;
-    answerButtonsElement.innerHTML = ""; // Clear previous buttons
-
-    currentAnswers.forEach(answer => {
+    currentQuestion.answer.forEach(answer => {
         const button = document.createElement("button");
-        button.classList.add("answer-btn");
         button.innerText = answer.text;
-        button.addEventListener("click", function() {
-            isCorrect(answer, button);
-        });
+        button.classList.add("btn");
+        button.classList.add("fw-bold");    
+    
+        button.classList.add("answer-btn");
+        button.classList.add("btn-outline-primary");
         answerButtonsElement.appendChild(button);
+
+        if(answer.correct) {
+            button.dataset.correct = answer.correct;
+
+        }
+        button.addEventListener("click", selectAnswer)
+
     });
 }
-
-function isCorrect(answer, answerBtn) {
-    nextButton.style.display = "block";
-
-    const allBtn = document.querySelectorAll('.answer-btn');
-    allBtn.forEach((btn) => {
-        btn.disabled = true;
-        
-        // if(btn)
-        // btn.classList.add('disabled');
-        // Highlight the correct answer
-    });
-    if (answer.correct !== "true"){
-        answerBtn.classList.add('incorrect');
-
-    } else{
-        answerBtn.classList.add('correct');
-        let ca = answerBtn.dataset.correct = answer.correct;
+function resetState() {
+    nextButton.classList.add("d-none");
+    while (answerButtonsElement.firstChild) {
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+    }
+}
+function selectAnswer(e) {
+    const selectedButton = e.target;
+    const isCorrect = selectedButton.dataset.correct=== "true";
+    if (isCorrect) {
+        selectedButton.classList.add("btn-success");
+        selectedButton.classList.remove("btn-outline-primary");
         score++;
-    };
+    } else {
+        selectedButton.classList.add("btn-danger");
+        selectedButton.classList.remove("btn-outline-primary");
+    }
 
+    Array.from(answerButtonsElement.children).forEach(button => {
+        if( button.dataset.correct === "true") {
+            button.classList.add("btn-success");
+            button.classList.remove("btn-outline-primary");
+        }
+        button.disabled = true;
+        button.classList.add("Disabled");
+        
+    });
+    nextButton.classList.remove("d-none");
+    // nextButton.style.display = "block";
 }
+nextButton.addEventListener("click", () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        questionElement.innerText = `You scored ${score} out of ${questions.length}`;
+        nextButton.classList.add("d-none");
+        nextButton.style.display = "none";
+        answerButtonsElement.innerHTML = '';
+        const restartButton = document.createElement("button");
+        restartButton.innerText = "Restart";
+        restartButton.classList.add("btn");
+        restartButton.classList.add("btn-primary");
+        restartButton.classList.add("fw-bold");
 
-nextButton.addEventListener('click', ()=>{
-    if(currentQuestionIndex >= questions.length - 1) {
-        // nextButton.style.display = "block";
-        nextButton.innerText = "Finish";
-        alert(score)
-        startGame();
-        currentQuestionIndex = 0;
-        score = 0;
-    }
-    else {
-        nextButton.style.display = "block";
-        currentQuestionIndex +=1;
-        startGame();
-    }
+        restartButton.addEventListener("click", startGame);
+        answerButtonsElement.appendChild(restartButton);
+        questionElement.classList.add("text-center");   
 
-})
+}})
 startGame();

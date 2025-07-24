@@ -1,0 +1,50 @@
+*
+    padding: 0
+    margin: 0
+    box-sizing: border-box
+    font-family: 'Arial', sans-serif
+::root
+    --primary-color: #2B3E50
+    --secondary-color: #6c757d
+    --success-color: #28a745
+    --danger-color: #dc3545
+    --warning-color: #ffc107
+    --info-color: #17a2b8
+    --light-color: #f8f9fa
+    --dark-color: #343a40   
+
+// Palette 2: Calm & Focused
+// Ideal for Educational or Relaxed Quizzes
+
+// Primary Background (Soft Sky Blue)
+$color-background-primary: #ECF0F1;
+
+// Secondary Background/Container (Muted Blue-Grey)
+$color-background-secondary: #BDC3C7;
+
+// Text Color (Deep Navy Blue)
+$color-text-primary: #2C3E50;
+
+// Accent Color (Optimistic Yellow - for Highlights, Selected Answers)
+$color-accent: #F1C40F;
+
+// Correct Answer Feedback (Natural Green)
+$color-feedback-correct: #27AE60;
+
+// Incorrect Answer Feedback (Earthy Red)
+$color-feedback-incorrect: #C0392B;
+
+// Optional: A general white for contrast on darker accents if needed
+$color-white: #FFFFFF;
+
+body
+    background-color: $color-background-secondary
+    color: #343a40 
+    display: grid
+    place-items: center
+    height: 100vh   
+
+// quiz game styles
+.Disabled
+    cursor: not-allowed
+    opacity: 0.5
